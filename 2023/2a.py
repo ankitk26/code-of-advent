@@ -7,8 +7,10 @@ while n != 0:
     n -= 1
 
 sum = 0
+RED, BLUE, GREEN = 12, 14, 13
+
 for index, test in enumerate(tests):
-    r, g, b = 0, 0, 0
+    flag = 0
 
     sets = [x.strip() for x in test.split(":")][1]
     draws = [x.strip() for x in sets.split(";")]
@@ -19,14 +21,14 @@ for index, test in enumerate(tests):
 
             actual_count = int(count)
 
-            if color == "blue":
-                b = max(b, actual_count)
-            if color == "red":
-                r = max(r, actual_count)
-            if color == "green":
-                g = max(g, actual_count)
+            if color == "blue" and actual_count > BLUE:
+                flag = 1
+            if color == "red" and actual_count > RED:
+                flag = 1
+            if color == "green" and actual_count > GREEN:
+                flag = 1
 
-    print(r, g, b)
-    sum += r * g * b
+    if flag == 0:
+        sum += index + 1
 
 print(sum)
